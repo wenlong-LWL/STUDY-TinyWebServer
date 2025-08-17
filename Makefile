@@ -13,11 +13,12 @@ endif
 LDFLAGS = -lpthread -lmysqlclient
 
 # 包含路径
-INCLUDES = -I./utils -I./log
+INCLUDES = -I./utils -I./log -I./CGImysql
 
 # 源文件列表
 SRCS = main.cpp \
        ./log/log.cpp \
+	   ./CGImysql/sql_connection_pool.cpp \
 
 # 生成的目标文件列表
 OBJS = $(SRCS:.cpp=.o)
@@ -31,6 +32,7 @@ all: $(TARGET)
 # 链接生成可执行文件
 $(TARGET): $(OBJS)
 	$(CXX) -o $@ $^ $(LDFLAGS)
+	rm -f $(OBJS)
 
 # 通用编译规则（.cpp -> .o）
 %.o: %.cpp
